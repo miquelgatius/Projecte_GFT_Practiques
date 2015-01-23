@@ -1,5 +1,5 @@
 ﻿
-//Creació de la base de dades
+//Creacio de la base de dades
 CREATE DATABASE funator;
 
 

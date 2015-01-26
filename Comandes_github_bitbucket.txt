@@ -1,0 +1,19 @@
+//Pujar a bitbucket:
+//primer pas(dins de la terminal de github)
+git remote add bitbucket https://miquelgatius@bitbucket.org/marclafita/practiques_caparrella
+
+//Això el que fa és dir-li on pujar (git remote add nomonguardeslaconfiguracio https://elteuuser/bitbucket.org/nomdelpropietari/nomrepositori
+
+
+//segon pas(dins de la terminal de github)
+git push -u bitbucket --all
+
+//bitbucket és el nom de la configuracio
+
+//Pujar a github
+
+//1º pujar arxiu i després fer el commit
+
+git add nomarxiu.extensio
+
+git commit -m "missatge"

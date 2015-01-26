@@ -1,0 +1,24 @@
+
+//Creació de la base de dades
+CREATE DATABASE funator;
+
+
+//Seleccionar DB
+use funator;
+
+//Creació de la taula d'usuaris
+CREATE TABLE usuaris(
+user_id varchar(20) primary key not null,
+pass varchar(32) not null
+);
+
+//Creació de la taula d'events
+CREATE TABLE Events(
+event_id int not null AUTO_INCREMENT,
+nom_local varchar(20) not null,
+nom_event varchar(80) not null,
+preu decimal(10,2) not null,
+data date not null,
+user_id varchar(20) not null references usuaris(user_id),
+primary key(event_id,data)
+);

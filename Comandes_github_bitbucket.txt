@@ -17,3 +17,9 @@ git push -u bitbucket --all
 git add nomarxiu.extensio
 
 git commit -m "missatge"
+
+
+
+
+//per agafar coses del bitbucket
+git pull bitbucket master

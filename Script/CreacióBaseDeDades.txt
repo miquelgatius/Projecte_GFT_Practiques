@@ -1,0 +1,83 @@
+
+/*Creació de la base de dades*/
+CREATE DATABASE funator;
+
+
+/*Seleccionar DB
+use funator;
+
+/*Creació de la taula d'usuaris*/
+create table usuaris(
+user_id varchar(20) primary key not null,
+pass varchar(32) not null,
+acc_name varchar(20) not null,
+email varchar(35) not null UNIQUE check(email like  '%_@__%.__%'),
+enabled boolean not null default true
+);
+
+/*Creació de la taula d'events*/
+CREATE TABLE events(
+event_id int not null primary key AUTO_INCREMENT,
+nom_event varchar(80) not null,
+preu decimal(10,2) not null,
+data date not null,
+descripcio varchar(1000),
+imatge blob,
+user_id varchar(20) not null references usuaris(user_id)
+);
+
+/*Creació de la taula província*/
+create table provincia(
+prov_id int not null primary key AUTO_INCREMENT,
+nom varchar(40) not null
+);
+
+
+/*Creació de la taula localitat*/
+create table localitat(
+local_id int not null primary key AUTO_INCREMENT,
+prov_id int not null  references provincia(prov_id),
+nom varchar(40) not null
+);
+
+/*Creació de la taula empresa*/
+create table empresa(
+CIF varchar(9) not null,
+nom varchar(30) not null,
+local_id int not null references localitat(local_id),
+carrer varchar(40) not null,
+telefon varchar(13),
+password varchar(50),
+primary key(CIF,carrer)
+);
+
+/*Creació de la taula ofertes*/
+create table ofertes(
+oferta_id int not null primary key AUTO_INCREMENT,
+nom varchar(20),
+descripcio varchar(200) not null,
+preu decimal (4,2) not null,
+user_id varchar(20) references usuaris(user_id),
+data_inici date not null,
+data_final date not null
+ );
+
+/*Creació de la taula participants*/
+create table participants(
+event_id int not null references events(event_id),
+user_id varchar(20) not null references usuaris(user_id),
+primary key(event_id,user_id)
+);
+
+/*Creació de la taula d'empresa-usuaris*/
+create table empresausuari(
+user_id varchar(20) not null references usuaris(user_id),
+CIF varchar(9) not null references empresa(CIF),
+primary key (user_id,CIF)
+);
+
+/*Crear usuaris*/
+insert into usuaris values ('prova','1234','pro','maiki@maik.com',default);
+insert into usuaris values ('goku','1234','not yamcha','power@maik.com',default);
+insert into usuaris values ('tinote','1234','noteti','piti@maik.com',default);
+insert into usuaris values ('pitigirl','1234','<o==||=====>','none@maik.com',false);

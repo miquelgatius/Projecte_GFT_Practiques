@@ -7,9 +7,12 @@ CREATE DATABASE funator;
 use funator;
 
 //Creació de la taula d'usuaris
-CREATE TABLE usuaris(
+create table usuaris(
 user_id varchar(20) primary key not null,
-pass varchar(32) not null
+pass varchar(32) not null,
+acc_name varchar(20) not null,
+email varchar(35) not null UNIQUE check(email like  '%_@__%.__%'),
+enabled boolean not null default true
 );
 
 //Creació de la taula d'events
@@ -22,3 +25,11 @@ data date not null,
 user_id varchar(20) not null references usuaris(user_id),
 primary key(event_id,data)
 );
+
+
+
+//Crear usuaris
+insert into usuaris values ('prova','1234','pro','maiki@maik.com',default);
+insert into usuaris values ('goku','1234','not yamcha','power@maik.com',default);
+insert into usuaris values ('tinote','1234','noteti','piti@maik.com',default);
+insert into usuaris values ('pitigirl','1234','<o==||=====>','none@maik.com',false);

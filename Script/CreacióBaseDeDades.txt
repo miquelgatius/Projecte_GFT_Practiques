@@ -23,7 +23,7 @@ preu decimal(10,2) not null,
 data date not null,
 descripcio varchar(1000),
 imatge blob,
-user_id varchar(20) not null references usuaris(user_id)
+CIF varchar(9) not null references empresa(CIF)
 );
 
 /*Creació de la taula província*/

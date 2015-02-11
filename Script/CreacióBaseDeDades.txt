@@ -3,7 +3,7 @@
 CREATE DATABASE funator;
 
 
-/*Seleccionar DB
+/*Seleccionar DB*/
 use funator;
 
 /*Creació de la taula d'usuaris*/
@@ -13,7 +13,37 @@ pass varchar(32) not null,
 acc_name varchar(20) not null,
 email varchar(35) not null UNIQUE check(email like  '%_@__%.__%'),
 enabled boolean not null default true
-);
+) ENGINE=InnoDB;
+
+
+/*Creació de la taula província*/
+create table provincia(
+prov_id int not null primary key AUTO_INCREMENT,
+nom varchar(40) not null
+) ENGINE=InnoDB;
+
+
+/*Creació de la taula localitat*/
+create table localitat(
+local_id int not null primary key AUTO_INCREMENT,
+prov_id int not null  references provincia(prov_id),
+nom varchar(40) not null
+) ENGINE=InnoDB;
+
+/*Creació de la taula empresa*/
+create table empresa(
+CIF varchar(9) not null,
+nom varchar(30) not null,
+local int not null,
+carrer varchar(40) not null,
+telefon varchar(13),
+password varchar(50),
+primary key(CIF,carrer),
+constraint foreign key(local) references localitat(local_id)
+on update cascade
+on delete restrict
+) ENGINE=InnoDB;
+
 
 /*Creació de la taula d'events*/
 CREATE TABLE events(
@@ -23,61 +53,83 @@ preu decimal(10,2) not null,
 data date not null,
 descripcio varchar(1000),
 imatge blob,
-CIF varchar(9) not null references empresa(CIF)
-);
-
-/*Creació de la taula província*/
-create table provincia(
-prov_id int not null primary key AUTO_INCREMENT,
-nom varchar(40) not null
-);
-
-
-/*Creació de la taula localitat*/
-create table localitat(
-local_id int not null primary key AUTO_INCREMENT,
-prov_id int not null  references provincia(prov_id),
-nom varchar(40) not null
-);
-
-/*Creació de la taula empresa*/
-create table empresa(
 CIF varchar(9) not null,
-nom varchar(30) not null,
-local_id int not null references localitat(local_id),
-carrer varchar(40) not null,
-telefon varchar(13),
-password varchar(50),
-primary key(CIF,carrer)
-);
+constraint foreign key(CIF) references empresa(CIF)
+on update cascade
+on delete restrict
+) ENGINE=InnoDB;
 
 /*Creació de la taula ofertes*/
 create table ofertes(
 oferta_id int not null primary key AUTO_INCREMENT,
-nom varchar(20),
+nom varchar(40),
 descripcio varchar(200) not null,
-preu decimal (4,2) not null,
-user_id varchar(20) references usuaris(user_id),
+preu decimal (10,2) not null,
+CIF varchar(9) not null,
 data_inici date not null,
-data_final date not null
- );
+data_final date not null,
+constraint foreign key(CIF) references empresa(CIF)
+on update cascade
+on delete restrict
+ )ENGINE=InnoDB;
 
 /*Creació de la taula participants*/
 create table participants(
 event_id int not null references events(event_id),
-user_id varchar(20) not null references usuaris(user_id),
-primary key(event_id,user_id)
-);
+user_id varchar(20) not null,
+primary key(event_id,user_id),
+constraint foreign key(event_id) references events(event_id)
+on update cascade
+on delete restrict,
+constraint foreign key(user_id) references usuaris(user_id)
+on update cascade
+on delete restrict
+)ENGINE=InnoDB;
 
 /*Creació de la taula d'empresa-usuaris*/
 create table empresausuari(
-user_id varchar(20) not null references usuaris(user_id),
-CIF varchar(9) not null references empresa(CIF),
-primary key (user_id,CIF)
-);
+user_id varchar(20) not null,
+CIF varchar(9) not null,
+primary key (user_id,CIF),
+constraint foreign key(CIF) references empresa(CIF)
+on update cascade
+on delete restrict,
+constraint foreign key(user_id) references usuaris(user_id)
+on update cascade
+on delete restrict
+)ENGINE=InnoDB;
 
 /*Crear usuaris*/
 insert into usuaris values ('prova','1234','pro','maiki@maik.com',default);
 insert into usuaris values ('goku','1234','not yamcha','power@maik.com',default);
 insert into usuaris values ('tinote','1234','noteti','piti@maik.com',default);
 insert into usuaris values ('pitigirl','1234','<o==||=====>','none@maik.com',false);
+
+
+/*Crear província*/
+insert into provincia (nom) values('Lleida'),('Girona'),('Tarragona'),('Barcelona');
+
+/*Crear localitat*/
+insert into localitat (prov_id,nom) values(1,'Alpicat'),(1,'Lleida'),(1,'Balaguer');
+
+/*Crear empresa*/
+insert into empresa values('A1234567J','NoEstoyBorracho S.A',1,'c/ barraxina nº 4','973737041','password');
+insert into empresa values('G6565656A','TocaElClackson S.A',2,'c/ xinbarraº 4','66666661','1234');
+insert into empresa values('K1234556A','BocadilleriaPsicopedagogo S.A',3,'c/ esternocleidomastoideo nº 4','3333333','elconill');
+
+/*Crear event*/
+insert into events (nom_event,preu,data,descripcio,imatge,CIF) values ('Festa xuli 15/02/2015 dj Majo',10.2,'2015-02-15','Pots comprar les entrades al telefon que apareixera',null,'A1234567J');
+insert into events (nom_event,preu,data,descripcio,imatge,CIF) values ('Festa chasis 15/02/2015 dj barakobama en cabina',1220.2,'2015-02-15','Val molt la pena, si.',null,'A1234567J');
+
+/*Crear ofertes*/
+insert into ofertes(nom,descripcio,preu,CIF,data_inici,data_final) values('Ole que be','2x3 t emportes 2 i pages 3!!',400.00,'A1234567J','2012-01-01','2222-09-09');
+insert into ofertes(nom,descripcio,preu,CIF,data_inici,data_final) values('Don t stop me a','No et pots perdre aixo!!',42.00,'A1234567J','2012-01-01','2222-09-09');
+
+/*Crear partycipants*/
+insert into participants ( user_id,event_id) values ('goku',1);
+insert into participants ( user_id,event_id) values ('goku',2);
+insert into participants ( user_id,event_id) values ('tinote',1);
+
+/*Crear empresausuaris*/
+insert into empresausuari (user_id,CIF) values ('goku','A1234567J');
+insert into empresausuari (user_id,CIF) values ('tinote','A1234567J');

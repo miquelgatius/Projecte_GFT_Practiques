@@ -1,0 +1,101 @@
+
+//CAMBIAR PASS
+
+    @PUT
+    @Path("Cambiarpass/{id}/{pass}")
+    @Consumes({"application/json"})
+    public void editPass(@PathParam("id") String id,@PathParam("pass") String pass, Usuaris entity) {
+       Usuaris s;
+       String p;
+       
+       s=super.find(id);    //a un Usuaris nou li poso tot el usuari del id per poder comparar la contrasenya
+       if(s!=null)
+        {
+            p=entity.getPass();      //guardo el json que m'han escrit per despres pasar-lo
+
+            if(s.getPass().equals(pass))
+            { 
+                entity=s;//li paso al entity tot el usuari 
+
+                entity.setPass(p);//li poso al entity el pass que m'han escrit
+
+                super.edit(entity); 
+            }   
+        }
+    }
+
+//CAMBIAR NICK
+
+
+    @PUT
+    @Path("CambiarNick/{id}/{pass}")
+    @Consumes({"application/json"})
+    public void editnick(@PathParam("id") String id,@PathParam("pass") String pass, Usuaris entity) {
+       Usuaris s;
+       String p;
+       
+       s=super.find(id);    //a un Usuaris nou li poso tot el usuari del id per poder comparar la contrasenya
+       if(s!=null)
+        {
+            p=entity.getAccName();      //guardo el json que m'han escrit per despres pasar-lo
+
+            if(s.getPass().equals(pass))
+            { 
+                entity=s;//li paso al entity tot el usuari 
+
+                entity.setAccName(p);//li poso al entity el pass que m'han escrit
+
+                super.edit(entity); 
+            }   
+        }
+    }
+
+
+//CAMBIAR EMAIL
+@PUT
+    @Path("CambiarEmail/{id}/{pass}")
+    @Consumes({"application/json"})
+    public void editemail(@PathParam("id") String id,@PathParam("pass") String pass, Usuaris entity) {
+       Usuaris s;
+       String p;
+       
+       s=super.find(id);    //a un Usuaris nou li poso tot el usuari del id per poder comparar la contrasenya
+       if(s!=null)
+        {
+            p=entity.getEmail();      //guardo el json que m'han escrit per despres pasar-lo
+
+            if(s.getPass().equals(pass))
+            { 
+                entity=s;//li paso al entity tot el usuari 
+
+                entity.setEmail(p);//li poso al entity el pass que m'han escrit
+
+                super.edit(entity); 
+            }   
+        }
+    }
+
+//CAMBIAR STATUS
+    @PUT
+    @Path("CambiarStatus/{id}/{pass}")
+    @Consumes({"application/json"})
+    public void editstatus(@PathParam("id") String id,@PathParam("pass") String pass, Usuaris entity) {
+       Usuaris s;
+       boolean p;
+       
+       s=super.find(id);    //a un Usuaris nou li poso tot el usuari del id per poder comparar la contrasenya
+       if(s!=null)
+        {
+            p=entity.getEnabled();      //guardo el json que m'han escrit per despres pasar-lo
+
+            if(s.getPass().equals(pass))
+            { 
+                entity=s;//li paso al entity tot el usuari 
+
+                entity.setEnabled(p);//li poso al entity el pass que m'han escrit
+
+                super.edit(entity); 
+            }   
+        }
+    }
+

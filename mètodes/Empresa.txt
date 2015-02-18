@@ -1,0 +1,80 @@
+/////////////////////////////////////////////////
+
+//Important posar-ho a Events.java i recordar posar coma a l'anterior!
+@NamedQuery(name = "Empresausuari.findByUserIdAndCif", query = "SELECT ea.empresausuariPK.userId from Empresausuari ea WHERE ea.empresausuariPK.userId = :userId and ea.empresausuariPK.cif = :cif")
+///////////////////////////////////////////////////
+
+
+//Cambiar Nom
+
+@PUT
+    @Path("CambiarNom/{id}/{pass}")
+    @Consumes({"application/json"})
+    public void editnom(@PathParam("id") String id,@PathParam("pass") String pass, Empresa entity) {
+       Empresa s;
+       String p;
+       
+       s=super.find(id);    //a un Usuaris nou li poso tot el usuari del id per poder comparar la contrasenya
+       if(s!=null)
+        {
+            p=entity.getNom();      //guardo el json que m'han escrit per despres pasar-lo
+
+            if(s.getPassword().equals(pass))
+            { 
+                entity=s;//li paso al entity tot el usuari 
+
+                entity.setNom(p);//li poso al entity el pass que m'han escrit
+
+                super.edit(entity); 
+            }   
+        }
+    }
+
+//Cambiar TELEFON
+    
+    @PUT
+    @Path("CambiarTelefon/{id}/{pass}")
+    @Consumes({"application/json"})
+    public void edittel(@PathParam("id") String id,@PathParam("pass") String pass, Empresa entity) {
+       Empresa s;
+       String p;
+       
+       s=super.find(id);    //a un Usuaris nou li poso tot el usuari del id per poder comparar la contrasenya
+       if(s!=null)
+        {
+            p=entity.getTelefon();      //guardo el json que m'han escrit per despres pasar-lo
+
+            if(s.getPassword().equals(pass))
+            { 
+                entity=s;//li paso al entity tot el usuari 
+
+                entity.setTelefon(p);//li poso al entity el pass que m'han escrit
+
+                super.edit(entity); 
+            }   
+        }
+    }
+//Cambiar PASS
+   
+    @PUT
+    @Path("CambiarPass/{id}/{pass}")
+    @Consumes({"application/json"})
+    public void editpass(@PathParam("id") String id,@PathParam("pass") String pass, Empresa entity) {
+       Empresa s;
+       String p;
+       
+       s=super.find(id);    //a un Usuaris nou li poso tot el usuari del id per poder comparar la contrasenya
+       if(s!=null)
+        {
+            p=entity.getPassword();      //guardo el json que m'han escrit per despres pasar-lo
+
+            if(s.getPassword().equals(pass))
+            { 
+                entity=s;//li paso al entity tot el usuari 
+
+                entity.setPassword(p);//li poso al entity el pass que m'han escrit
+
+                super.edit(entity); 
+            }   
+        }
+    }

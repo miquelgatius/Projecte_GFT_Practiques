@@ -1,0 +1,205 @@
+
+
+//canviar nom
+@PUT 
+    @Path("CanviarNom/{id}/{user_id}")
+    @Consumes({"application/json"})
+    public void editNom(@PathParam("id") int id,@PathParam("user_id") String user_id, Events entity) 
+    { 
+      Events s; 
+      String nom; 
+  //Busquem tot l'event
+      s = super.find(id); 
+      
+      //És posa això per si l'event no existeix.
+      if(s != null)
+      {
+          //Agafem el nom de l'event que ens ha enviat
+      nom = entity.getNomEvent(); 
+      //L'hi diem la consula que ha de fer i els paràmetres que tindrà.
+    Query query = em.createNamedQuery("Empresausuari.findByUserIdAndCif") .setParameter("userId", user_id).setParameter("cif",  s.getCif());
+   
+    //agafem el resultat de la consulta
+    List llista = query.getResultList();
+      //Solució a l'error per si petava la consulta
+    if( 1 <= llista.size())
+
+        {
+       //Comparem si el usuari que ha agafat és el mateix que vol editar.( per si existeix dins de l'empresa)
+            if(String.valueOf(llista.get(0)).equals(user_id))
+            {
+                //fem que el entity tingui tot el contingut de la fila ( el json requereix tots els camps)
+                entity = s;
+                //Editem el nom amb el nou nom
+                entity.setNomEvent(nom);
+                //ho canviem
+                super.edit(entity);
+            } 
+        } 
+      }
+    }
+
+
+
+
+ //canviar Preu
+    @PUT 
+    @Path("CanviarPreu/{id}/{user_id}")
+    @Consumes({"application/json"})
+    public void editPreu(@PathParam("id") int id,@PathParam("user_id") String user_id, Events entity) 
+    { 
+      Events s; 
+      BigDecimal preu;
+  //Busquem tot l'event
+      s = super.find(id); 
+      
+      //És posa això per si l'event no existeix.
+      if(s != null)
+      {
+          //Agafem el preu de l'event que ens ha enviat
+      preu = entity.getPreu(); 
+      //L'hi diem la consula que ha de fer i els paràmetres que tindrà.
+    Query query = em.createNamedQuery("Empresausuari.findByUserIdAndCif") .setParameter("userId", user_id).setParameter("cif",  s.getCif());
+   
+    //agafem el resultat de la consulta
+    List llista = query.getResultList();
+      //Solució a l'error per si petava la consulta
+    if( 1 <= llista.size())
+
+        {
+       //Comparem si el usuari que ha agafat és el mateix que vol editar.( per si existeix dins de l'empresa)
+            if(String.valueOf(llista.get(0)).equals(user_id))
+            {
+                //fem que el entity tingui tot el contingut de la fila ( el json requereix tots els camps)
+                entity = s;
+                //Editem el nom amb el nou nom
+                entity.setPreu(preu);
+                //ho canviem
+                super.edit(entity);
+            } 
+        } 
+      }
+    }
+
+
+
+
+//canviar data
+    @PUT 
+    @Path("CanviarData/{id}/{user_id}")
+    @Consumes({"application/json"})
+    public void editData(@PathParam("id") int id,@PathParam("user_id") String user_id, Events entity) 
+    { 
+      Events s; 
+      Date data;
+  //Busquem tot l'event
+      s = super.find(id); 
+      
+      //És posa això per si l'event no existeix.
+      if(s != null)
+      {
+          //Agafem la data de l'event que ens ha enviat
+      data = entity.getData(); 
+      //L'hi diem la consula que ha de fer i els paràmetres que tindrà.
+    Query query = em.   createNamedQuery("Empresausuari.findByUserIdAndCif") .setParameter("userId", user_id).setParameter("cif",  s.getCif());
+   
+    //agafem el resultat de la consulta
+    List llista = query.getResultList();
+      //Solució a l'error per si petava la consulta
+    if( 1 <= llista.size())
+
+        {
+       //Comparem si el usuari que ha agafat és el mateix que vol editar.( per si existeix dins de l'empresa)
+            if(String.valueOf(llista.get(0)).equals(user_id))
+            {
+                //fem que el entity tingui tot el contingut de la fila ( el json requereix tots els camps)
+                entity = s;
+                //Editem el nom amb el nou nom
+                entity.setData(data);
+                //ho canviem
+                super.edit(entity);
+            } 
+        } 
+      }
+    }
+
+
+ //canviar descripcio
+    @PUT 
+    @Path("CanviarDesc/{id}/{user_id}")
+    @Consumes({"application/json"})
+    public void editDesc(@PathParam("id") int id,@PathParam("user_id") String user_id, Events entity) 
+    { 
+      Events s; 
+      String desc;
+  //Busquem tot l'event
+      s = super.find(id); 
+      
+      //És posa això per si l'event no existeix.
+      if(s != null)
+      {
+          //Agafem la data de l'event que ens ha enviat
+      desc = entity.getDescripcio();
+      //L'hi diem la consula que ha de fer i els paràmetres que tindrà.
+    Query query = em.   createNamedQuery("Empresausuari.findByUserIdAndCif") .setParameter("userId", user_id).setParameter("cif",  s.getCif());
+   
+    //agafem el resultat de la consulta
+    List llista = query.getResultList();
+      //Solució a l'error per si petava la consulta
+    if( 1 <= llista.size())
+
+        {
+       //Comparem si el usuari que ha agafat és el mateix que vol editar.( per si existeix dins de l'empresa)
+            if(String.valueOf(llista.get(0)).equals(user_id))
+            {
+                //fem que el entity tingui tot el contingut de la fila ( el json requereix tots els camps)
+                entity = s;
+                //Editem el nom amb el nou nom
+                entity.setDescripcio(desc);
+                //ho canviem
+                super.edit(entity);
+            } 
+        } 
+      }
+    }
+
+
+ //canviar imatge
+    @PUT 
+    @Path("CanviarImatge/{id}/{user_id}")
+    @Consumes({"application/json"})
+    public void editImage(@PathParam("id") int id,@PathParam("user_id") String user_id, Events entity) 
+    { 
+      Events s; 
+      byte[] imatge;
+  //Busquem tot l'event
+      s = super.find(id); 
+      
+      //És posa això per si l'event no existeix.
+      if(s != null)
+      {
+          //Agafem la data de l'event que ens ha enviat
+      imatge = entity.getImatge();
+      //L'hi diem la consula que ha de fer i els paràmetres que tindrà.
+    Query query = em.   createNamedQuery("Empresausuari.findByUserIdAndCif") .setParameter("userId", user_id).setParameter("cif",  s.getCif());
+   
+    //agafem el resultat de la consulta
+    List llista = query.getResultList();
+      //Solució a l'error per si petava la consulta
+    if( 1 <= llista.size())
+
+        {
+       //Comparem si el usuari que ha agafat és el mateix que vol editar.( per si existeix dins de l'empresa)
+            if(String.valueOf(llista.get(0)).equals(user_id))
+            {
+                //fem que el entity tingui tot el contingut de la fila ( el json requereix tots els camps)
+                entity = s;
+                //Editem el nom amb el nou nom
+                entity.setImatge(imatge);
+                //ho canviem
+                super.edit(entity);
+            } 
+        } 
+      }
+    }
+

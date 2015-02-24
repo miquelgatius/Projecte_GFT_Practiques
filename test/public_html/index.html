@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html ng-app ="serviceConsumer">
+
+<head>
+    
+    <title> miquel</title>
+<script src= "http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+<script type="text/javascript" src= "app.js"></script>
+</head>
+
+<body>
+
+<p>Introdueix el teu login.</p>
+
+<form name="formulari" id="prova" ng-submit="apretar()">
+    <div ng-controller="questionsController">
+
+Usuari:      <input type="text"  ng-model ="username" id="algo"><br>
+Contrasenya: <input type="text"  ng-model ="password" id="algo2"><br>
+<br>
+{{algo}}
+
+<button ng-click="apretar()">Enviar</button>
+<hr>
+{{data}}
+    </div>
+</form>
+
+
+</body>
+</html>
